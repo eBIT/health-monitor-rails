@@ -1,14 +1,12 @@
 # health-monitor-rails
 
-[![Gem Version](https://badge.fury.io/rb/health-monitor-rails.svg)](http://badge.fury.io/rb/health-monitor-rails)
-[![Build Status](https://travis-ci.org/lbeder/health-monitor-rails.svg)](https://travis-ci.org/lbeder/health-monitor-rails)
-[![Coverage Status](https://coveralls.io/repos/lbeder/health-monitor-rails/badge.svg)](https://coveralls.io/r/lbeder/health-monitor-rails)
-
 This is a health monitoring Rails mountable plug-in, which checks various services (db, cache, sidekiq, redis, etc.).
 
 Mounting this gem will add a '/check' route to your application, which can be used for health monitoring the application and its various services. The method will return an appropriate HTTP status as well as an HTML/JSON/XML response representing the state of each provider.
 
 You can filter which checks to run by passing a parameter called ```providers```.
+
+Added parameters for limiting output formats, setting health check url and added support for jbuilder template.
 
 ## Examples
 
@@ -327,6 +325,20 @@ HealthMonitor.configure do |config|
   }
 end
 ```
+
+### Additional output Configuration
+
+Configuration parameters for output:
+
+```ruby
+HealthMonitor.configure do |config|
+  config.monitoring_url = '/monitoring' # Default monitoring url path
+  config.formats = [:html, :json] # By default it is only [:json]
+  config.use_jbuilder_template = true # By default true
+end
+```
+
+Jbuilder template can be added to Rails project in directory `<Rails.root>/views/health_monitor/health/check.json.jbuilder` .
 
 ### Monitoring Script
 

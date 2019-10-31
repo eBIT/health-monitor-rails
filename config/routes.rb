@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
 HealthMonitor::Engine.routes.draw do
-  controller :health do
-    get :check
-  end
+  get HealthMonitor.configuration.monitoring_url, to: 'health#check'
 end

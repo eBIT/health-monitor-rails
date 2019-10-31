@@ -6,8 +6,10 @@ module HealthMonitor
 
     if Rails.version.starts_with? '3'
       before_filter :authenticate_with_basic_auth
+      before_filter :set_available_format
     else
       before_action :authenticate_with_basic_auth
+      before_action :set_available_format
     end
 
     def check
@@ -15,8 +17,12 @@ module HealthMonitor
 
       respond_to do |format|
         format.html
-        format.json do
-          render json: statuses.to_json, status: statuses[:status]
+        if use_jbuilder_template?
+          format.json
+        else
+          format.json do
+            render json: statuses.to_json, status: statuses[:status]
+          end
         end
         format.xml do
           render xml: statuses.to_xml, status: statuses[:status]
@@ -47,6 +53,14 @@ module HealthMonitor
 
     def providers_params
       params.permit(providers: [])
+    end
+
+    def set_available_format
+      request.format = :json unless HealthMonitor.configuration.formats.include?(params[:format].to_s.downcase.to_sym)
+    end
+
+    def use_jbuilder_template?
+      HealthMonitor.configuration.use_jbuilder_template
     end
   end
 end

@@ -6,9 +6,11 @@ module HealthMonitor
 
     attr_accessor :error_callback, :basic_auth_credentials, :environment_variables
     attr_reader :providers
+    attr_accessor :formats, :monitoring_url, :use_jbuilder_template
 
     def initialize
       database
+      set_defaults
     end
 
     def no_database
@@ -37,6 +39,12 @@ module HealthMonitor
       (@providers ||= Set.new) << provider_class
 
       provider_class
+    end
+
+    def set_defaults
+      @formats = [:json]
+      @monitoring_url = '/monitoring'
+      @use_jbuilder_template = true
     end
   end
 end

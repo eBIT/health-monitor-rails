@@ -7,13 +7,13 @@ Gem::Specification.new do |s|
   s.name = 'health-monitor-rails'
   s.version = HealthMonitor::VERSION
   s.platform = Gem::Platform::RUBY
-  s.authors = ['Leonid Beder']
-  s.email = ['leonid.beder@gmail.com']
+  s.authors = ['Leonid Beder', 'Normunds Jakubaņecs']
+  s.email = ['leonid.beder@gmail.com', 'normunds.jakubanecs@autentica.lv']
   s.license = 'MIT'
   s.homepage = 'https://github.com/lbeder/health-monitor-rails'
   s.summary = 'Health monitoring Rails plug-in, which checks various services (db, cache, '\
     'sidekiq, redis, etc.)'
-  s.description = 'Health monitoring Rails plug-in, which checks various services (db, cache, '\
+  s.description = 'Fork from original Health monitoring Rails plug-in writen by Leonid Beder, which checks various services (db, cache, '\
     'sidekiq, redis, etc.).'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
